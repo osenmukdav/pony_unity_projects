@@ -743,6 +743,7 @@ void pony_linal_uT_mul_v(double *res, double *u, double *v, const int m) {
 	// Cholesky upper-triangular factorization P = S*S^T, where P is symmetric positive-definite matrix
 		// input:	P - upper-triangular part of symmetric m-by-m positive-definite R lined in a single-dimension array
 		// output:	S - upper-triangular part of a Cholesky factor S lined in a single-dimension array
+		// 
 void pony_linal_chol(double *S, double *P, const int m)
 {
 	int i, j, k, k0, p, q, p0;
@@ -756,7 +757,7 @@ void pony_linal_chol(double *S, double *P, const int m)
 		for (i = j+1, k = k0-j-1; i < m; k -= i+1, i++) {
 			for (p = k0+1, q = k+1, s = 0; p <= p0; p++, q++)
 				s += S[p]*S[q];
-			S[k] = (P[k] - s)/S[k0];
+			S[k] = (S[k0] == 0)? 0 : (P[k] - s)/S[k0];
 		}
 	}
 }
